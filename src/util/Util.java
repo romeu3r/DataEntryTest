@@ -35,8 +35,7 @@ public class Util {
             }
             return listOrder;
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new PersonalErrorTreated(e.getMessage());
         }
     }
 
@@ -65,8 +64,7 @@ public class Util {
             }
             return list;
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new PersonalErrorTreated(e.getMessage());
         }
     }
 
@@ -76,8 +74,7 @@ public class Util {
             props.load(fis);
             return props;
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new PersonalErrorTreated(e.getMessage());
         }
     }
 }

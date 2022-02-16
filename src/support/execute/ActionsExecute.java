@@ -2,6 +2,7 @@ package support.execute;
 
 import entities.Order;
 import support.Actions;
+import util.PersonalErrorTreated;
 import util.Util;
 
 import java.util.ArrayList;
@@ -28,8 +29,7 @@ public class ActionsExecute implements Actions {
             }
             return filter;
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new PersonalErrorTreated(e.getMessage());
         }
     }
 
