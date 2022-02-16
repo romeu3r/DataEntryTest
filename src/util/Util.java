@@ -5,11 +5,13 @@ import entities.Order;
 import entities.Product;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 public class Util {
     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -62,6 +64,17 @@ public class Util {
                 line = br.readLine();
             }
             return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Properties loadProperties() {
+        try (FileInputStream fis = new FileInputStream("environment.properties")) {
+            Properties props = new Properties();
+            props.load(fis);
+            return props;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
