@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Client {
     private String name;
-    private int totalOrders = 0;
+    private Integer totalOrders = 0;
     private Date firstOrder;
     private Double totalSpend = 0.0;
 
@@ -21,20 +21,20 @@ public class Client {
         this.totalOrders += 1;
     }
 
+    public Integer getTotalOrders() {
+        return totalOrders;
+    }
+
+    public void setTotalOrders(Integer totalOrders) {
+        this.totalOrders = totalOrders;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getTotalOrders() {
-        return totalOrders;
-    }
-
-    public void setTotalOrders(int totalOrders) {
-        this.totalOrders = totalOrders;
     }
 
     public Date getFirstOrder() {

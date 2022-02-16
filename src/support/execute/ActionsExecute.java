@@ -27,10 +27,10 @@ public class ActionsExecute implements Actions {
     }
 
     @Override
-    public List<Order> searchOrder(List<Order> list, String name) {
+    public List<Order> searchOrder(String name) {
         try {
             List<Order> filter = new ArrayList<>();
-            for (Order item : list) {
+            for (Order item : preLoadData) {
                 if (item.getClient().getName().equalsIgnoreCase(name))
                     filter.add(item);
             }
@@ -69,14 +69,23 @@ public class ActionsExecute implements Actions {
         }
     }
 
-    //    Preco de todos os produtos
-//    double valueList = byOrder.getItems().stream().map(x -> x.getPrice()).reduce(0.0, Double::sum);
     @Override
     public Client mostInvestedClient() {
+        loadClientByOrder();
+        return singularClients.stream().sorted((o1, o2) -> o2.getTotalSpend().compareTo(o1.getTotalSpend())).toList().get(0);
+    }
+
+    @Override
+    public Client mostOrdersMake() {
+        loadClientByOrder();
+        return singularClients.stream().sorted((o1, o2) -> o2.getTotalOrders().compareTo(o1.getTotalOrders())).toList().get(0);
+    }
+
+    private void loadClientByOrder() {
         Map<Client, Double> totalClient = new HashMap<>();
         for (Order byOrder : preLoadData) {
             Client client = byOrder.getClient();
-            double valueList = byOrder.getItems().stream().map(x -> x.getPrice()).reduce(0.0, Double::sum);
+            double valueList = byOrder.getItems().stream().map(Product::getPrice).reduce(0.0, Double::sum);
             if (totalClient.containsKey(client)) {
                 double value = totalClient.get(client);
                 totalClient.put(client, value + valueList);
@@ -90,12 +99,5 @@ public class ActionsExecute implements Actions {
                 singularClients.add(client);
             }
         }
-        return singularClients.stream().sorted((o1, o2) -> o2.getTotalSpend().compareTo(o1.getTotalSpend())).collect(Collectors.toList()).get(0);
-//        return preLoadData.stream().map(x -> x.getClient()).sorted((o1, o2) -> o2.getTotalSpend().compareTo(o1.getTotalSpend())).collect(Collectors.toList()).get(0);
-    }
-
-    @Override
-    public Client mostOrdersMake() {
-        return null;
     }
 }
