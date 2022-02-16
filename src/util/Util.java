@@ -13,10 +13,13 @@ import java.util.List;
 
 public class Util {
     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+    BufferedReader br = null;
+    String line = null;
 
     public List<Order> loadOrders(String filePath) {
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line = br.readLine();
+        try {
+            br = new BufferedReader(new FileReader(filePath));
+            line = br.readLine();
             List<Order> listOrder = new ArrayList<>();
             while (line != null) {
                 if (countChar(line) == 2) {
@@ -24,10 +27,9 @@ public class Util {
                     String name = fields[0];
                     int id = Integer.parseInt(fields[1]);
                     Date date = sdf.parse(fields[2]);
-                    List<Product> listProduct = readingOrderItems(br);
+                    List<Product> listProduct = readingOrderItems();
                     listOrder.add(new Order(id, date, new Client(name), listProduct));
                 }
-                line = br.readLine();
             }
             return listOrder;
         } catch (Exception e) {
@@ -48,9 +50,9 @@ public class Util {
         }
     }
 
-    private List<Product> readingOrderItems(BufferedReader br) {
+    private List<Product> readingOrderItems() {
         try {
-            String line = br.readLine();
+            line = br.readLine();
             List<Product> list = new ArrayList<>();
             while (countChar(line) == 1) {
                 String[] fields = line.split(",");

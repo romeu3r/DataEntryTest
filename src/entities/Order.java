@@ -1,5 +1,6 @@
 package entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,8 @@ public class Order {
     private Date date;
     private Client client;
     private List<Product> items;
+
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
     public Order() {
     }
@@ -55,7 +58,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "idRequest=" + idRequest +
-                ", date=" + date +
+                ", date=" + sdf.format(date) +
                 ", client=" + client +
                 ", items=" + items +
                 '}';
