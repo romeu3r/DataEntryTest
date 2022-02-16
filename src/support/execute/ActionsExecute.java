@@ -10,15 +10,15 @@ import util.Util;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ActionsExecute implements Actions {
     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
     Util utils;
     String pathFile;
     List<Order> preLoadData;
+    List<Client> singularClients = new ArrayList<>();
 
     public ActionsExecute(Util utils) {
         this.pathFile = utils.loadProperties().getProperty("pathFile");
@@ -67,5 +67,35 @@ public class ActionsExecute implements Actions {
         } catch (Exception e) {
             throw new PersonalErrorTreated(e.getMessage());
         }
+    }
+
+    //    Preco de todos os produtos
+//    double valueList = byOrder.getItems().stream().map(x -> x.getPrice()).reduce(0.0, Double::sum);
+    @Override
+    public Client mostInvestedClient() {
+        Map<Client, Double> totalClient = new HashMap<>();
+        for (Order byOrder : preLoadData) {
+            Client client = byOrder.getClient();
+            double valueList = byOrder.getItems().stream().map(x -> x.getPrice()).reduce(0.0, Double::sum);
+            if (totalClient.containsKey(client)) {
+                double value = totalClient.get(client);
+                totalClient.put(client, value + valueList);
+                singularClients.forEach(x -> {
+                    if (x.equals(client)) x.updateClient(value);
+                });
+                client.updateClient(valueList);
+            } else {
+                totalClient.put(client, valueList);
+                client.updateClient(valueList);
+                singularClients.add(client);
+            }
+        }
+        return singularClients.stream().sorted((o1, o2) -> o2.getTotalSpend().compareTo(o1.getTotalSpend())).collect(Collectors.toList()).get(0);
+//        return preLoadData.stream().map(x -> x.getClient()).sorted((o1, o2) -> o2.getTotalSpend().compareTo(o1.getTotalSpend())).collect(Collectors.toList()).get(0);
+    }
+
+    @Override
+    public Client mostOrdersMake() {
+        return null;
     }
 }

@@ -10,4 +10,6 @@ public interface Actions {
     List<Order> searchOrder(List<Order> list, String name);
     List<Order> printAllOrders();
     void makeANewOrder(Client client, List<Product> list);
+    Client mostInvestedClient();
+    Client mostOrdersMake();
 }

@@ -12,7 +12,6 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Program {
-
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
@@ -20,7 +19,7 @@ public class Program {
         try {
             System.out.println("Welcome to our Pseudocode, i'm glad to receive you here!");
             System.out.println("Before all, what kind of action you want make? (Chose one, please.)");
-            System.out.print("[1] Show all data request? \n[2] Make a new order? \n[3] Show client most spend money? \n[4] Show client with more orders? ");
+            System.out.print("[1] Show all data request? \n[2] Make a new order? \n[3] Show client that most spend money? \n[4] Show client with more orders? ");
             int chose = sc.nextInt();
             if (chose == 1)
                 am.printAllOrders().forEach(System.out::println);
@@ -42,6 +41,11 @@ public class Program {
                 }
                 am.makeANewOrder(new Client(name), listItems);
                 System.out.println("You order will received! " + name + ", Please check below:\n" + listItems);
+            }
+            if (chose == 3) {
+                Client client = am.mostInvestedClient();
+                System.out.println("");
+                System.out.println("The best client is: " + client.getName() + ",\nActually he makes a total orders: " + client.getTotalOrders() + "\nAnd spend a total: " + client.getTotalSpend());
             }
         } catch (Exception e) {
             throw new PersonalErrorTreated(e.getMessage());

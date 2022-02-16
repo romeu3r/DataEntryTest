@@ -1,18 +1,24 @@
 package entities;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Client {
     private String name;
-    private int totalOrders;
+    private int totalOrders = 0;
     private Date firstOrder;
-    private Double totalSpend;
+    private Double totalSpend = 0.0;
 
     public Client() {
     }
 
     public Client(String name) {
         this.name = name.replaceAll(",", ".");
+    }
+
+    public void updateClient(Double spendAdd) {
+        this.totalSpend += spendAdd;
+        this.totalOrders += 1;
     }
 
     public String getName() {
@@ -55,5 +61,20 @@ public class Client {
                 ", firstOrder=" + firstOrder +
                 ", totalSpend=" + totalSpend +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Client client = (Client) o;
+
+        return Objects.equals(name, client.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
     }
 }
