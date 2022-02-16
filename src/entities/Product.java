@@ -8,7 +8,7 @@ public class Product {
     }
 
     public Product(String name, double price) {
-        this.name = name;
+        this.name = name.replaceAll(",", ".");
         this.price = price;
     }
 

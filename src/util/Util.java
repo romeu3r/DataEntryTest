@@ -24,6 +24,8 @@ public class Util {
             line = br.readLine();
             List<Order> listOrder = new ArrayList<>();
             while (line != null) {
+                if (line.equals(""))
+                    line = br.readLine();
                 if (countChar(line) == 2) {
                     String[] fields = line.split(",");
                     String name = fields[0];
