@@ -45,11 +45,11 @@ public class Program {
             }
             if (chose == 3) {
                 Client client = am.mostInvestedClient();
-                System.out.println("\nThe best client is: " + client.getName() + ",\nActually he makes a total orders: " + client.getTotalOrders() + "\nAnd spend a total: " + client.getTotalSpend());
+                System.out.println("\nThe best client is: " + client.getName() + ",\nCurrently he makes a total orders: " + client.getTotalOrders() + "\nAnd spend a total: " + client.getTotalSpend());
             }
             if (chose == 4) {
                 Client client = am.mostOrdersMake();
-                System.out.println("\nThe best client is: " + client.getName() + ",\nActually he makes a total orders: " + client.getTotalOrders() + "\nAnd spend a total: " + client.getTotalSpend());
+                System.out.println("\nThe best client is: " + client.getName() + ",\nCurrently he makes a total orders: " + client.getTotalOrders() + "\nAnd spend a total: " + client.getTotalSpend());
             }
             if (chose == 5) {
                 List<Order> result;
